@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="mainPage.js"></script>
+    <title>Image Labeler</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Style the body */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+
+        /* Header/logo Title */
+        .header {
+            padding: 30px;
+            text-align: center;
+            background-image: url("background.jpg");
+            background-size: auto;
+            color: white;
+        }
+
+        /* Increase the font size of the heading */
+        .header h1 {
+            font-size: 50px;
+        }
+
+        /* Change color on hover */
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Column container */
+        .row {
+            display: -ms-flexbox;
+            /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap;
+            /* IE10 */
+            flex-wrap: wrap;
+        }
+
+        /* Create two unequal columns that sits next to each other */
+        /* Sidebar/left column */
+        .side {
+            -ms-flex: 40%;
+            /* IE10 */
+            flex: 40%;
+            background-color: #f1f1f1;
+            padding: 40px 50px;
+        }
+
+        /* Main column */
+        .main {
+            -ms-flex: 60%;
+            /* IE10 */
+            flex: 60%;
+            background-color: white;
+            padding: 20px;
+        }
+
+        .button {
+            background-color: #2f42aa;
+            border: none;
+            color: white;
+            padding: 30px 80px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 25px;
+            margin: 140px 200px;
+            cursor: pointer;
+        }
+
+        /* Change color on hover */
+        .button:hover {
+            background-color: cornflowerblue;
+            color: black;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background: #ddd;
+        }
+
+        /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 700px) {
+            .row {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Image Labeler</h1>
+        <p>A website for you to upload your pictures for AI training</p>
+    </div>
+
+    <div class="row">
+        <div class="side">
+            <h1>Instructions</h1>
+            <h3>Step 1</h3>
+            <p>Take picture using phone</p>
+            <h3>Step 2</h3>
+            <p>Fill in required information</p>
+            <h3>Step 3</h3>
+            <p>Upload completed photo</p>
+            <h3>Step 4</h3>
+            <p>Download data from website</p>
+        </div>
+        <div class="main">
+            <input type="button" class="button" value="Download" onclick="download()">
+        </div>
+    </div>
+
+    <div class="footer">
+        <h4>Contact</h4>
+    </div>
+
+</body>
+
+</html>
