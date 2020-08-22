@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <script src="mainPage.js"></script>
+    <script src="{{url_for('static', filename='mainpage.js')}}"></script>
     <title>Image Labeler</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +21,7 @@
         .header {
             padding: 30px;
             text-align: center;
-            background-image: url("background.jpg");
+            background-image: url("{{url_for('static', filename='background.jpg')}}");
             background-size: auto;
             color: white;
         }

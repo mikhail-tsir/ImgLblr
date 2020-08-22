@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <script src="index.js"></script>
+    <script src="{{url_for('static', filename='index.js')}}"></script>
     <title>Sign In</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -79,9 +79,9 @@
 
     <h2>Sign In</h2>
 
-    <form id = frm1 action="demo.html" method="post">
+    <form id = frm1 action="demo" method="post">
         <div class="imgcontainer">
-            <img src="profile.png" alt="Avatar" class="avatar">
+            <img src="{{url_for('static', filename='profile.png')}}" alt="Avatar" class="avatar">
         </div>
 
         
