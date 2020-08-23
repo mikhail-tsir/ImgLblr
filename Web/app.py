@@ -12,8 +12,8 @@ def demo():
 
 @app.route('/images', methods = ['GET', 'POST'])
 def get_imgdata():
-    tokenid = request.args.get(tokenid)
+    tokenId = request.args.get("tokenId")
     return json.dumps({'hello':'world',
-            'user': tokenid})
+            'user': tokenId})
 
-app.run(port=8080)
+app.run(port=5000)
