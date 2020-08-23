@@ -16,4 +16,4 @@ def get_imgdata():
     return json.dumps({'hello':'world',
             'user': tokenId})
 
-app.run(5000)
+app.run(port=5000)
