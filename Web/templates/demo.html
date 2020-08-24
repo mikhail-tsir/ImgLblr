@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <script src="{{url_for('static', filename='mainpage.js')}}"></script>
     <title>Image Labeler</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,7 +102,6 @@
 </head>
 
 <body>
-
     <div class="header">
         <h1>Image Labeler</h1>
         <p>A website for you to upload your pictures for AI training</p>
@@ -122,14 +120,14 @@
             <p>Download data from website</p>
         </div>
         <div class="main">
-            <input type="button" class="button" value="Download" onclick="download()">
+            <a href="#" class="button" value="Download" id="downloadbtn" download="#">Download</a>
         </div>
     </div>
 
     <div class="footer">
         <h4>Contact</h4>
     </div>
-
+    <script src="{{url_for('static', filename='mainpage.js')}}"></script>
 </body>
 
 </html>
