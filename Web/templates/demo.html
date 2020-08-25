@@ -65,8 +65,8 @@
             padding: 20px;
         }
 
-        .button {
-            background-color: #2f42aa;
+        .button1 {
+            background-color: #53a1ce;
             border: none;
             color: white;
             padding: 30px 80px;
@@ -74,12 +74,31 @@
             text-decoration: none;
             display: inline-block;
             font-size: 25px;
-            margin: 140px 200px;
+            margin: 60px 200px;
             cursor: pointer;
         }
 
         /* Change color on hover */
-        .button:hover {
+        .button1:hover {
+            background-color: cornflowerblue;
+            color: black;
+        }
+
+        .button2 {
+            background-color: #2f42aa;
+            border: none;
+            color: white;
+            padding: 30px 70px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 25px;
+            margin: 40px 200px;
+            cursor: pointer;
+        }
+
+        /* Change color on hover */
+        .button2:hover {
             background-color: cornflowerblue;
             color: black;
         }
@@ -120,7 +139,8 @@
             <p>Download data from website</p>
         </div>
         <div class="main">
-            <a href="#" class="button" value="Download" id="downloadbtn" download="#">Download</a>
+            <input type="button" class="button1" value="Preview" id= "previewbtn" onclick="preview()">
+            <a href="#" class="button2" value="Download" id="downloadbtn" download="#">Download</a>
         </div>
     </div>
 
