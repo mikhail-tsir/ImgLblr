@@ -8,7 +8,6 @@ previewBtn.onclick = preview;
 async function downloadData() {
     button.setAttribute("download", "imgdata-"+id+".json");
     console.log("ID:", id);
-
     button.href="http://127.0.0.1:5000/images?tokenId=" + id;
 }
 
