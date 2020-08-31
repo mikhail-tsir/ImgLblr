@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView, Platform, StatusBar } from "react-native";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 
@@ -29,12 +29,18 @@ export default class CameraPage extends React.Component {
     }
 
     return (
-      <View>
+      <SafeAreaView
+        style={{
+          paddingTop: Platform.OS === "android" ? 25 : 0,
+          flex: 1,
+        }}
+      >
         <Camera
           style={styles.preview}
           ref={(camera) => (this.camera = camera)}
+          ratio="1:1"
         />
-      </View>
+      </SafeAreaView>
     );
   }
 }

@@ -1,16 +1,16 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, StatusBar } from "react-native";
 
 const { width: winWidth, height: winHeight } = Dimensions.get("window");
 
 export default StyleSheet.create({
   preview: {
-    height: winHeight,
+    height: winWidth,
     width: winWidth,
     position: "absolute",
-    //flex: 1,
     left: 0,
-    top: 0,
+    top: StatusBar.currentHeight,
     right: 0,
     bottom: 0,
+    //paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });
