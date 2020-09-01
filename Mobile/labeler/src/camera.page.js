@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, SafeAreaView, Platform, StatusBar } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 
@@ -29,18 +29,12 @@ export default class CameraPage extends React.Component {
   };
 
   handleShortCapture = async () => {
-    const photoData = await this.camera.takePictureAsync();
+    const photoData = await this.camera.takePictureAsync({ quality: 1 });
+    console.log("Photo has been taken: ");
+    console.log(photoData);
     this.setState({
       capturing: false,
       captures: [photoData, ...this.state.captures],
-    });
-  };
-
-  handleLongCapture = async () => {
-    const videoData = await this.camera.recordAsync();
-    this.setState({
-      capturing: false,
-      captures: [videoData, ...this.state.captures],
     });
   };
 
@@ -85,7 +79,6 @@ export default class CameraPage extends React.Component {
             setCameraType={this.setCameraType}
             onCaptureIn={this.handleCaptureIn}
             onCaptureOut={this.handleCaptureOut}
-            onLongCapture={this.handleLongCapture}
             onShortCapture={this.handleShortCapture}
           />
         </SafeAreaView>

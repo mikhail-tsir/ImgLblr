@@ -16,7 +16,6 @@ export default ({
   setCameraType,
   onCaptureIn,
   onCaptureOut,
-  onLongCapture,
   onShortCapture,
 }) => (
   <Grid style={styles.bottomToolbar}>
@@ -44,7 +43,6 @@ export default ({
         <TouchableWithoutFeedback
           onPressIn={onCaptureIn}
           onPressOut={onCaptureOut}
-          onLongPress={onLongCapture}
           onPress={onShortCapture}
         >
           <View
