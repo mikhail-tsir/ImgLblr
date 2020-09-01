@@ -70,7 +70,9 @@ export default class CameraPage extends React.Component {
             ref={async (camera) => (this.camera = camera)}
             ratio="1:1"
           />
-          {captures.length > 0 && <Gallery captures={captures} />}
+          {captures.length > 0 && (
+            <Gallery captures={captures} navigation={this.props.navigation} />
+          )}
           <Toolbar
             capturing={capturing}
             flashMode={flashMode}
