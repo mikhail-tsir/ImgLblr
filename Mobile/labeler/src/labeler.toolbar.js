@@ -46,7 +46,7 @@ export default ({ onSave, onUpload, onCancel }) => (
 export function BackHeader({ onBack }) {
   return (
     <View style={styles.backbutton}>
-      <AntDesign name="back" color="white" 
+      <AntDesign name="back" color="white" />
     </View>
   );
 }
