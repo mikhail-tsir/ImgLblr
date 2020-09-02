@@ -10,10 +10,19 @@ import {
   StatusBar,
 } from "react-native";
 
+//import styles from "./styles";
+import Toolbar, { BackHeader } from "./labeler.toolbar";
+import Config from "./config/config";
+
+const buttonSize = Config.BUTTON_SIZE;
 const { width: winWidth, height: winHeight } = Dimensions.get("window");
-console.log("width = " + winWidth + ", height = " + winHeight);
 
 export default class LabelScreen extends React.Component {
+  handleGoBack = () => console.log("Not actually going back... yet");
+  handleCancel = () => console.log("Not actually cancelling... yet");
+  handleUpload = () => console.log("Not actually uploading... yet");
+  handleSave = () => console.log("Not actually saving... yet");
+
   componentDidMount() {
     StatusBar.setHidden(true);
   }
@@ -21,14 +30,19 @@ export default class LabelScreen extends React.Component {
   render() {
     const { navigation, route } = this.props;
     const location = route.params.location;
-    //const { location } = route.location;
+
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.statusbar} />
+        <BackHeader onPress={this.handleGoBack} />
         <Image
           resizeMode="contain"
           source={{ uri: location }}
-          style={styles.image}
+          style={[styles.image, { top: buttonSize + StatusBar.currentHeight }]}
+        />
+        <Toolbar
+          onBack={this.handleGoBack}
+          onUpload={this.handleUpload}
+          onSave={this.handleSave}
         />
       </SafeAreaView>
     );
@@ -43,7 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   image: {
-    top: 50,
+    //top: 50,
     width: winWidth,
     height: winWidth,
   },
