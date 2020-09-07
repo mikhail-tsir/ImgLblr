@@ -10,7 +10,10 @@ export default ({ captures = [], navigation }) => (
   >
     {captures.map(({ uri }) => (
       <TouchableOpacity
-        onPress={() => navigation.navigate("LabelScreen", { location: uri })}
+        onPress={() => {
+          navigation.navigate("LabelScreen", { location: uri });
+          console.log("going to LabelScreen");
+        }}
       >
         <View style={styles.galleryImageContainer} key={uri}>
           <Image source={{ uri }} style={styles.galleryImage} />

@@ -10,7 +10,7 @@ import {
   Octicons,
 } from "@expo/vector-icons";
 import { Col, Row, Grid } from "react-native-easy-grid";
-import { View, TouchableWithoutFeedback, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
 
 import styles from "./styles";
 import config from "./config/config";
@@ -45,10 +45,23 @@ export default ({ onSave, onUpload, onCancel }) => (
 
 export function BackHeader({ onBack }) {
   return (
-    <TouchableOpacity onPress={onBack}>
-      <View style={styles.backbutton}>
-        <AntDesign name="back" color="white" />
-      </View>
-    </TouchableOpacity>
+    <View style={styles.backbutton}>
+      <TouchableOpacity onPress={onBack}>
+        <AntDesign
+          name="back"
+          color="white"
+          size={buttonSize}
+          style={shadowstyle.shadow}
+        />
+      </TouchableOpacity>
+    </View>
   );
 }
+
+const shadowstyle = StyleSheet.create({
+  shadow: {
+    textShadowColor: "#171717",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 5,
+  },
+});

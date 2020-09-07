@@ -18,7 +18,9 @@ const buttonSize = Config.BUTTON_SIZE;
 const { width: winWidth, height: winHeight } = Dimensions.get("window");
 
 export default class LabelScreen extends React.Component {
-  handleGoBack = () => console.log("Not actually going back... yet");
+  navigation = this.props.navigation;
+
+  handleGoBack = this.navigation.goBack;
   handleCancel = () => console.log("Not actually cancelling... yet");
   handleUpload = () => console.log("Not actually uploading... yet");
   handleSave = () => console.log("Not actually saving... yet");
@@ -29,18 +31,18 @@ export default class LabelScreen extends React.Component {
 
   render() {
     const { navigation, route } = this.props;
-    const location = route.params.location;
+    const imgLocation = route.params.location;
 
     return (
       <SafeAreaView style={styles.container}>
-        <BackHeader onPress={this.handleGoBack} />
         <Image
           resizeMode="contain"
-          source={{ uri: location }}
-          style={[styles.image, { top: buttonSize + StatusBar.currentHeight }]}
+          source={{ uri: imgLocation }}
+          style={styles.image}
         />
+        <BackHeader onBack={this.handleGoBack} />
         <Toolbar
-          onBack={this.handleGoBack}
+          onCancel={this.handleCancel}
           onUpload={this.handleUpload}
           onSave={this.handleSave}
         />
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "#171717",
   },
   image: {
     //top: 50,

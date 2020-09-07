@@ -24,6 +24,15 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  backbutton: {
+    position: "absolute",
+    height: 100,
+    top: 0,
+    right: 0,
+    alignSelf: "flex-end",
+    paddingRight: 20,
+    paddingTop: 20,
+  },
   bottomToolbar: {
     width: winWidth,
     position: "absolute",
@@ -60,10 +69,5 @@ export default StyleSheet.create({
   galleryImage: {
     width: 75,
     height: 75,
-  },
-  topToolbar: {
-    position: "absolute",
-    width: winWidth,
-    height: 50,
   },
 });
