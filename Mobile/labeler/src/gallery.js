@@ -16,7 +16,7 @@ export default ({ captures = [], navigation }) => (
         }}
       >
         <View style={styles.galleryImageContainer} key={uri}>
-          <Image source={{ uri }} style={styles.galleryImage} />
+          <Image source={{ uri }} style={styles.galleryImage} key={uri} />
         </View>
       </TouchableOpacity>
     ))}

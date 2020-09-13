@@ -29,8 +29,8 @@ export default class App extends React.Component {
           FileSystem.makeDirectoryAsync(queueLocation);
         }
 
-        info = await FileSystem.getInfoAsync(savedLocation);
-        if (!info.exists) {
+        let savedinfo = await FileSystem.getInfoAsync(savedLocation);
+        if (!savedinfo.exists) {
           FileSystem.makeDirectoryAsync(savedLocation);
         }
       }

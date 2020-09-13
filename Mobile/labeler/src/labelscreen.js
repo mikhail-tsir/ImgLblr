@@ -45,12 +45,12 @@ export default class LabelScreen extends React.Component {
     this.setState({ hasCameraRollPermission });
 
     if (hasCameraRollPermission) {
-      try {
-        const result = await this.getPhotosAsync();
-        console.log(this.state.savedPhotos);
-      } catch (err) {
-        throw Error(400);
-      }
+      // try {
+      //   const result = await this.getPhotosAsync();
+      //   console.log(this.state.savedPhotos);
+      // } catch (err) {
+      //   throw Error(400);
+      // }
     }
   }
 
@@ -65,9 +65,9 @@ export default class LabelScreen extends React.Component {
       return <Text>Camera Roll permission has been denied</Text>;
     }
 
-    console.log("State: " + this.state);
+    //console.log("State: " + this.state);
     let { photos } = this.state;
-    console.log(photos);
+    // console.log(photos);
     const { navigation, route } = this.props;
     const imgLocation = route.params.location;
 

@@ -2,10 +2,13 @@ import React from "react";
 import { View, Text, SafeAreaView } from "react-native";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
+import * as FileSystem from "expo-file-system";
 
 import styles from "./styles";
 import Toolbar from "./toolbar";
 import Gallery from "./gallery";
+import { queueLocation } from "./constants";
+import { saveToQueue } from "./utils";
 
 export default class CameraPage extends React.Component {
   camera = null;
@@ -36,6 +39,12 @@ export default class CameraPage extends React.Component {
       capturing: false,
       captures: [photoData, ...this.state.captures],
     });
+    saveToQueue(photoData);
+    console.log("Queue folder: ");
+    let res = await FileSystem.readDirectoryAsync(
+      FileSystem.documentDirectory + "labeler/queue"
+    );
+    console.log(res);
   };
 
   async componentDidMount() {
