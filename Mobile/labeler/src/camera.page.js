@@ -55,8 +55,11 @@ export default class CameraPage extends React.Component {
   async componentDidMount() {
     const camera = await Permissions.askAsync(Permissions.CAMERA);
     const hasCameraPermission = camera.status === "granted";
-
     this.setState({ hasCameraPermission });
+
+    const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
+    console.log("Currently in queue: " + queueImgs);
+    this.setState({ captures: queueImgs.map((name) => queueLocation + name) });
   }
 
   render() {

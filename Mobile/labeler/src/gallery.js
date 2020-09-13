@@ -13,6 +13,7 @@ export default ({ captures = [], navigation }) => (
         onPress={() => {
           navigation.navigate("LabelScreen", { location: path });
           console.log("going to LabelScreen");
+          console.log("path is " + path);
         }}
       >
         <View style={styles.galleryImageContainer} key={path}>
