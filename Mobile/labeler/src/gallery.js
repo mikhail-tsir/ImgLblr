@@ -8,15 +8,19 @@ export default ({ captures = [], navigation }) => (
     horizontal={true}
     style={[styles.bottomToolbar, styles.galleryContainer]}
   >
-    {captures.map(({ uri }) => (
+    {captures.map((path) => (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("LabelScreen", { location: uri });
+          navigation.navigate("LabelScreen", { location: path });
           console.log("going to LabelScreen");
         }}
       >
-        <View style={styles.galleryImageContainer} key={uri}>
-          <Image source={{ uri }} style={styles.galleryImage} key={uri} />
+        <View style={styles.galleryImageContainer} key={path}>
+          <Image
+            source={{ uri: path }}
+            style={styles.galleryImage}
+            key={path}
+          />
         </View>
       </TouchableOpacity>
     ))}

@@ -8,10 +8,12 @@ function getImgName() {
   return d.toISOString() + ".jpg";
 }
 
-export async function saveToQueue(photoData) {
-  const { uri } = photoData;
+export async function saveToQueue(uri) {
+  var imgName = getImgName();
   FileSystem.copyAsync({
     from: uri,
-    to: queueLocation + getImgName(),
+    to: queueLocation + imgName,
   }).catch((err) => console.log(err.message));
+
+  return queueLocation + imgName;
 }
