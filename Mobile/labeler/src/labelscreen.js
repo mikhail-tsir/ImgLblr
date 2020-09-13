@@ -43,21 +43,12 @@ export default class LabelScreen extends React.Component {
     const camroll = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     let hasCameraRollPermission = camroll.status === "granted";
     this.setState({ hasCameraRollPermission });
-
-    if (hasCameraRollPermission) {
-      // try {
-      //   const result = await this.getPhotosAsync();
-      //   console.log(this.state.savedPhotos);
-      // } catch (err) {
-      //   throw Error(400);
-      // }
-    }
   }
 
-  async getPhotosAsync() {
-    let photos = await MediaLibrary.getAssetsAsync({ first: 2 });
-    this.setState({ savedPhotos: photos.assets });
-  }
+  // async getPhotosAsync() {
+  //   let photos = await MediaLibrary.getAssetsAsync({ first: 2 });
+  //   this.setState({ savedPhotos: photos.assets });
+  // }
 
   render() {
     const { hasCameraRollPermission } = this.state;
@@ -65,9 +56,6 @@ export default class LabelScreen extends React.Component {
       return <Text>Camera Roll permission has been denied</Text>;
     }
 
-    //console.log("State: " + this.state);
-    let { photos } = this.state;
-    // console.log(photos);
     const { navigation, route } = this.props;
     const imgLocation = route.params.location;
 
@@ -97,7 +85,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#171717",
   },
   image: {
-    //top: 50,
     width: winWidth,
     height: winWidth,
   },

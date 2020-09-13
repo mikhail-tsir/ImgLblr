@@ -33,8 +33,6 @@ export default class CameraPage extends React.Component {
 
   handleShortCapture = async () => {
     const photoData = await this.camera.takePictureAsync({ quality: 1 });
-    // console.log("Photo has been taken: ");
-    // console.log(photoData);
 
     saveToQueue(photoData.uri)
       .then((path) =>
@@ -44,12 +42,6 @@ export default class CameraPage extends React.Component {
         })
       )
       .catch((err) => console.log("WTF??? " + err));
-
-    // console.log("Queue folder: ");
-    // let res = await FileSystem.readDirectoryAsync(
-    //   FileSystem.documentDirectory + "labeler/queue"
-    // );
-    // console.log(res);
   };
 
   async componentDidMount() {
