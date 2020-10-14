@@ -62,10 +62,6 @@ export default class CameraPage extends React.Component {
     });
   }
 
-  // componentWillUnmount() {
-  //   this._unsubscribe();
-  // }
-
   render() {
     const {
       hasCameraPermission,
