@@ -13,6 +13,8 @@ import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 
 import Toolbar, { BackHeader } from "./labeler.toolbar";
+import * as FileSystem from "expo-file-system";
+import { queueLocation } from "./constants";
 
 const { width: winWidth, height: winHeight } = Dimensions.get("window");
 
@@ -21,7 +23,22 @@ export default class LabelScreen extends React.Component {
   navigation = this.props.navigation;
   handleGoBack = this.navigation.goBack;
 
-  handleCancel = () => console.log("Not actually cancelling... yet");
+  //handleCancel = () => console.log("Not actually cancelling... yet");
+  handleCancel = async () => {
+    let location = this.props.route.params.location;
+    await FileSystem.deleteAsync(location);
+    const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
+
+    if (queueImgs.length == 0) {
+      this.navigation.navigate("cameraPage");
+      return;
+    }
+
+    this.navigation.navigate("LabelScreen", {
+      location: queueLocation + queueImgs[0],
+    });
+  };
+
   handleUpload = () => console.log("Not actually uploading... yet");
   handleSave = async () => {
     let { hasCameraRollPermission } = this.state;

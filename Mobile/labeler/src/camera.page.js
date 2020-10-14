@@ -52,7 +52,19 @@ export default class CameraPage extends React.Component {
     const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
     console.log("Currently in queue: " + queueImgs);
     this.setState({ captures: queueImgs.map((name) => queueLocation + name) });
+
+    const { navigation } = this.props;
+    navigation.addListener("focus", async () => {
+      const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
+      this.setState({
+        captures: queueImgs.map((name) => queueLocation + name),
+      });
+    });
   }
+
+  // componentWillUnmount() {
+  //   this._unsubscribe();
+  // }
 
   render() {
     const {

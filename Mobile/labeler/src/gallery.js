@@ -15,6 +15,7 @@ export default ({ captures = [], navigation }) => (
           console.log("going to LabelScreen");
           console.log("path is " + path);
         }}
+        key={path}
       >
         <View style={styles.galleryImageContainer} key={path}>
           <Image
