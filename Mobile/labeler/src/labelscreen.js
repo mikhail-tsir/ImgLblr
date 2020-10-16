@@ -6,7 +6,6 @@ import {
   Image,
   StyleSheet,
   Dimensions,
-  Platform,
   StatusBar,
 } from "react-native";
 import * as MediaLibrary from "expo-media-library";
@@ -27,24 +26,23 @@ function queueToSavedName(queuePath) {
   return savedLocation + getFileName(queuePath);
 }
 
-const getBlob = async (fileUri) => {
-  const res = await fetch(fileUri);
-  const imgBody = await res.blob();
-  return imgBody;
-};
+// const getBlob = async (fileUri) => {
+//   const res = await fetch(fileUri);
+//   const imgBody = await res.blob();
+//   return imgBody;
+// };
 
 const uploadImage = async (url, fields, imgPath) => {
   const form = new FormData();
   Object.keys(fields).forEach((key) => {
     form.append(key, fields[key]);
   });
-  const imgBody = await getBlob(imgPath);
-  form.append("file", imgBody);
+  form.append("file", { uri: imgPath, type: "image/jpeg" });
 
   return await fetch(url, {
     method: "POST",
     headers: {
-      Accept: "application/xml",
+      Accept: "application/json",
       "Content-Type": "multipart/form-data",
     },
     body: form,
@@ -74,7 +72,6 @@ export default class LabelScreen extends React.Component {
   };
 
   handleUpload = async () => {
-    console.log("hello");
     let response;
     try {
       response = await fetch(
@@ -88,10 +85,8 @@ export default class LabelScreen extends React.Component {
 
     try {
       const data = await response.json();
-      console.log("DATA:\n" + JSON.stringify(data));
-      let res = await uploadImage(data.url, data.fields, this.location);
-      let bruh = await res.text();
-      console.log("RESULT: " + bruh);
+      const res = await uploadImage(data.url, data.fields, this.location);
+      alert("Image uploaded successfully");
     } catch (err) {
       alert(err);
     }
@@ -110,12 +105,10 @@ export default class LabelScreen extends React.Component {
     }
 
     //move from queue to saved
-    let location = this.location;
-
     try {
       await FileSystem.moveAsync({
-        from: location,
-        to: queueToSavedName(location),
+        from: this.location,
+        to: queueToSavedName(this.location),
       });
     } catch (err) {
       console.log(error);
@@ -138,14 +131,11 @@ export default class LabelScreen extends React.Component {
       return <Text>Camera Roll permission has been denied</Text>;
     }
 
-    const { navigation, route } = this.props;
-    const imgLocation = route.params.location;
-
     return (
       <SafeAreaView style={styles.container}>
         <Image
           resizeMode="contain"
-          source={{ uri: imgLocation }}
+          source={{ uri: this.location }}
           style={styles.image}
         />
         <BackHeader onBack={this.handleGoBack} />

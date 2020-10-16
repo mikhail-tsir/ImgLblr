@@ -26,6 +26,7 @@ def get_imgdata():
 def create_presigned_post():
     s3_client = boto3.client('s3')
     object_name = request.args.get("name")
+
     try:
         response = s3_client.generate_presigned_post(bucket_name, object_name)
     except ClientError as e:
