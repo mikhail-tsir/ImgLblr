@@ -11,6 +11,7 @@ import { queueLocation } from "./constants";
 import { saveToQueue } from "./utils";
 
 export default class CameraPage extends React.Component {
+  _isMounted = false;
   camera = null;
 
   state = {
@@ -45,6 +46,8 @@ export default class CameraPage extends React.Component {
   };
 
   async componentDidMount() {
+    this._isMounted = true;
+
     const camera = await Permissions.askAsync(Permissions.CAMERA);
     const hasCameraPermission = camera.status === "granted";
     this.setState({ hasCameraPermission });
@@ -56,11 +59,17 @@ export default class CameraPage extends React.Component {
     // update pictures shown to remove deleted ones
     const { navigation } = this.props;
     navigation.addListener("focus", async () => {
-      const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
-      this.setState({
-        captures: queueImgs.map((name) => queueLocation + name),
-      });
+      if (this._isMounted) {
+        const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
+        this.setState({
+          captures: queueImgs.map((name) => queueLocation + name),
+        });
+      }
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
