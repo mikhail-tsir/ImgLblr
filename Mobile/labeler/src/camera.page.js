@@ -53,6 +53,7 @@ export default class CameraPage extends React.Component {
     console.log("Currently in queue: " + queueImgs);
     this.setState({ captures: queueImgs.map((name) => queueLocation + name) });
 
+    // update pictures shown to remove deleted ones
     const { navigation } = this.props;
     navigation.addListener("focus", async () => {
       const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
