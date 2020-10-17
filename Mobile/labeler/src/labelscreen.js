@@ -54,13 +54,12 @@ export default class LabelScreen extends React.Component {
   navigation = this.props.navigation;
   handleGoBack = this.navigation.goBack;
   location = this.props.route.params.location;
+  nextIdx = this.props.route.params.nextIdx;
 
   handleCancel = async () => {
-    let location = this.props.route.params.location;
-    await FileSystem.deleteAsync(location);
-    const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
+    await FileSystem.deleteAsync(this.location);
 
-    if (queueImgs.length == 0) {
+    if (nextIdx == -1) {
       this.navigation.navigate("cameraPage");
       return;
     }
