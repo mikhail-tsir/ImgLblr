@@ -2,7 +2,6 @@ import React from "react";
 import { View, Image, ScrollView, TouchableOpacity } from "react-native";
 
 import styles from "./styles";
-var idx = 0; // keeps track of image when displaying captures. This is needed to obtain the next image
 
 const mapCaptures = (captures, navigation) => (idx) => {
   return (
@@ -23,8 +22,6 @@ const mapCaptures = (captures, navigation) => (idx) => {
 };
 
 export default ({ captures = [], navigation }) => {
-  const indexArr = [...Array(captures.length).keys()];
-  console.log("indexArr: " + indexArr);
   return (
   <ScrollView
     horizontal={true}
