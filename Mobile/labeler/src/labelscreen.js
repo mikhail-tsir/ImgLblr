@@ -1,30 +1,20 @@
 import React from "react";
 import {
   Text,
-  View,
   SafeAreaView,
   Image,
   StyleSheet,
   Dimensions,
   StatusBar,
 } from "react-native";
-import * as MediaLibrary from "expo-media-library";
 import * as Permissions from "expo-permissions";
 
 import Toolbar, { BackHeader } from "./labeler.toolbar";
 import * as FileSystem from "expo-file-system";
 import { queueLocation } from "./constants";
+import {getFileName, queueToSavedName} from "./utils";
 
 const { width: winWidth, height: winHeight } = Dimensions.get("window");
-
-function getFileName(path) {
-  let temp = path.split("/");
-  return temp[temp.length - 1];
-}
-
-function queueToSavedName(queuePath) {
-  return savedLocation + getFileName(queuePath);
-}
 
 const uploadImage = async (url, fields, imgPath) => {
   const form = new FormData();
