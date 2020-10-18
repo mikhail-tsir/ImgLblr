@@ -26,12 +26,6 @@ function queueToSavedName(queuePath) {
   return savedLocation + getFileName(queuePath);
 }
 
-// const getBlob = async (fileUri) => {
-//   const res = await fetch(fileUri);
-//   const imgBody = await res.blob();
-//   return imgBody;
-// };
-
 const uploadImage = async (url, fields, imgPath) => {
   const form = new FormData();
   Object.keys(fields).forEach((key) => {
@@ -52,22 +46,45 @@ const uploadImage = async (url, fields, imgPath) => {
 export default class LabelScreen extends React.Component {
   state = { savedPhotos: null, hasCameraRollPermission: null };
   navigation = this.props.navigation;
-  handleGoBack = this.navigation.goBack;
-  location = this.props.route.params.location;
-  nextIdx = this.props.route.params.nextIdx;
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.state,
+      captures: props.route.params.captures,
+      idx: props.route.params.index,
+      location: props.route.params.captures[props.route.params.index]
+    }
+  }
+
+  handleGoBack = () => this.navigation.navigate("cameraPage", {captures: this.state.captures});
 
   handleCancel = async () => {
-    await FileSystem.deleteAsync(this.location);
-
-    if (nextIdx == -1) {
-      this.navigation.navigate("cameraPage");
-      return;
+    const {captures, idx, location} = this.state;
+    
+    try {
+      await FileSystem.deleteAsync(location);
+    }
+    catch(err) {
+      alert(err);
+      const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
+        this.setState({
+          captures: queueImgs.map((name) => queueLocation + name),
+        });
     }
 
-    // TODO: show next image, not first image
-    this.navigation.navigate("LabelScreen", {
-      location: queueLocation + queueImgs[0],
-    });
+    let newCaptures = captures;
+    newCaptures.splice(idx, 1);
+
+    // if this was the last image
+    if (newCaptures.length == 0) {
+      this.navigation.navigate("cameraPage", {captures: newCaptures});
+      return;
+    }
+    let newidx = idx >= newCaptures.length ? idx-1 : idx
+
+    // go to labelscreen with next image after current image is deleted
+    this.setState({captures: newCaptures, idx: newidx, location: newCaptures[newidx]})
   };
 
   handleUpload = async () => {
@@ -134,7 +151,7 @@ export default class LabelScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <Image
           resizeMode="contain"
-          source={{ uri: this.location }}
+          source={{ uri: this.state.location }}
           style={styles.image}
         />
         <BackHeader onBack={this.handleGoBack} />

@@ -42,7 +42,11 @@ export default class CameraPage extends React.Component {
           captures: [path, ...this.state.captures],
         })
       )
-      .catch((err) => console.log("WTF??? " + err));
+      .catch((err) => alert(err));
+
+      if (this.props.route.params) {
+        this.props.route.params = undefined;
+      }
   };
 
   async componentDidMount() {
@@ -53,19 +57,8 @@ export default class CameraPage extends React.Component {
     this.setState({ hasCameraPermission });
 
     const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
-    console.log("Currently in queue: " + queueImgs);
+    // console.log("Currently in queue: " + queueImgs);
     this.setState({ captures: queueImgs.map((name) => queueLocation + name) });
-
-    // update pictures shown to remove deleted ones
-    const { navigation } = this.props;
-    navigation.addListener("focus", async () => {
-      if (this._isMounted) {
-        const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
-        this.setState({
-          captures: queueImgs.map((name) => queueLocation + name),
-        });
-      }
-    });
   }
 
   componentWillUnmount() {
@@ -78,8 +71,10 @@ export default class CameraPage extends React.Component {
       flashMode,
       cameraType,
       capturing,
-      captures,
     } = this.state;
+    
+    // if captures need to be updated (img deleted), then the new captures is stored in this.props.route.params
+    const captures = this.props.route.params ? this.props.route.params.captures : this.state.captures;
 
     if (hasCameraPermission === null) {
       return <View />;
@@ -95,7 +90,7 @@ export default class CameraPage extends React.Component {
             flashMode={flashMode}
             style={styles.preview}
             ref={async (camera) => (this.camera = camera)}
-            ratio="1:1"
+            ratio="1:1" // only works on android
           />
           {captures.length > 0 && (
             <Gallery captures={captures} navigation={this.props.navigation} />
