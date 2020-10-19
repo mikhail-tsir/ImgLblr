@@ -9,13 +9,17 @@ const mapCaptures = (captures, navigation) => (idx) => {
       onPress={() => {
         navigation.navigate("LabelScreen", {
           index: idx,
-          captures: captures
+          captures: captures,
         });
       }}
       key={captures[idx]}
     >
       <View style={styles.galleryImageContainer} key={captures[idx]}>
-        <Image source={{ uri: captures[idx] }} style={styles.galleryImage} key={captures[idx]} />
+        <Image
+          source={{ uri: captures[idx] }}
+          style={styles.galleryImage}
+          key={captures[idx]}
+        />
       </View>
     </TouchableOpacity>
   );
@@ -23,10 +27,13 @@ const mapCaptures = (captures, navigation) => (idx) => {
 
 export default ({ captures = [], navigation }) => {
   return (
-  <ScrollView
-    horizontal={true}
-    style={[styles.bottomToolbar, styles.galleryContainer]}
-  >
-    {[...Array(captures.length).keys()].map(mapCaptures(captures, navigation))}
-  </ScrollView>);
+    <ScrollView
+      horizontal={true}
+      style={[styles.bottomToolbar, styles.galleryContainer]}
+    >
+      {[...Array(captures.length).keys()].map(
+        mapCaptures(captures, navigation)
+      )}
+    </ScrollView>
+  );
 };

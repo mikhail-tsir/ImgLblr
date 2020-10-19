@@ -44,9 +44,9 @@ export default class CameraPage extends React.Component {
       )
       .catch((err) => alert(err));
 
-      if (this.props.route.params) {
-        this.props.route.params = undefined;
-      }
+    if (this.props.route.params) {
+      this.props.route.params = undefined;
+    }
   };
 
   async componentDidMount() {
@@ -72,9 +72,11 @@ export default class CameraPage extends React.Component {
       cameraType,
       capturing,
     } = this.state;
-    
+
     // if captures need to be updated (img deleted), then the new captures is stored in this.props.route.params
-    const captures = this.props.route.params ? this.props.route.params.captures : this.state.captures;
+    const captures = this.props.route.params
+      ? this.props.route.params.captures
+      : this.state.captures;
 
     if (hasCameraPermission === null) {
       return <View />;
