@@ -33,7 +33,7 @@ export default class CameraPage extends React.Component {
   };
 
   handleShortCapture = async () => {
-    const photoData = await this.camera.takePictureAsync({ quality: 1 });
+    const photoData = await this.camera.takePictureAsync({ quality: 0 });
 
     saveToQueue(photoData.uri)
       .then((path) =>

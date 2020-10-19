@@ -1,6 +1,6 @@
 import * as FileSystem from "expo-file-system";
 
-import { queueLocation, saveLocation } from "./constants";
+import { queueLocation, savedLocation, saveLocation } from "./constants";
 
 function getImgName() {
   var d = new Date();
@@ -15,6 +15,17 @@ export async function saveToQueue(uri) {
   }).catch((err) => console.log(err.message));
 
   return queueLocation + imgName;
+}
+
+// saves image to saved. Image must already be in queue
+export async function saveToSaved(uri) {
+  var imgName = getFileName(uri);
+  FileSystem.copyAsync({
+    from: uri,
+    to: savedLocation + imgName,
+  }).catch((err) => console.log(err.message));
+
+  return savedLocation + imgName;
 }
 
 export function getFileName(path) {
