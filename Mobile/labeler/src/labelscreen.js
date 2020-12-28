@@ -138,7 +138,7 @@ export default class LabelScreen extends React.Component {
 
     //move from queue to saved
     try {
-      await FileSystem.moveAsync({
+      await FileSystem.copyAsync({
         from: location,
         to: queueToSavedName(location),
       });
