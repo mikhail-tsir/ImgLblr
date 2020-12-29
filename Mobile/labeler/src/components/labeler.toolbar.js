@@ -27,11 +27,12 @@ export default ({ onSave, onUpload, onCancel }) => (
       </Col>
       <Col style={styles.alignCenter}>
         <TouchableOpacity onPress={onUpload}>
-          <MaterialIcons
+          {/* <MaterialIcons
             name="cloud-upload"
             color="white"
             size={buttonSize * 2}
-          />
+          /> */}
+          <Ionicons name="ios-add-circle-outline" size={buttonSize * 2} color="white"/>
         </TouchableOpacity>
       </Col>
       <Col style={styles.alignCenter}>

@@ -12,7 +12,7 @@ import * as ImageManipulator from "expo-image-manipulator";
 
 import Toolbar, { BackHeader } from "./labeler.toolbar";
 import * as FileSystem from "expo-file-system";
-import { queueLocation, savedLocation } from "./constants";
+import { queueLocation, savedLocation, server_url } from "./constants";
 import { getFileName, queueToSavedName, saveToSaved } from "./utils";
 
 const { width: winWidth, height: winHeight } = Dimensions.get("window");
@@ -106,8 +106,9 @@ export default class LabelScreen extends React.Component {
   handleUpload = async () => {
     let response;
     try {
+      console.log("attempting to upload");
       response = await fetch(
-        "http://192.168.0.30:5000/generateurl?name=" +
+        server_url + "generateurl?name=" +
           getFileName(this.state.location)
       );
     } catch (err) {
