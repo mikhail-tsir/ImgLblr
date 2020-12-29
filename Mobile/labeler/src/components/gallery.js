@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, ScrollView, TouchableOpacity } from "react-native";
 
-import styles from "./styles";
+import styles from "../styles/styles";
 
 const mapCaptures = (captures, navigation) => (idx) => {
   return (

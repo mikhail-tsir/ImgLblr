@@ -3,9 +3,9 @@ import { NavigationContainer, StackActions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as FileSystem from "expo-file-system";
 
-import CameraPage from "./src/camera.page";
-import LabelScreen from "./src/labelscreen";
-import { dirLocation, queueLocation, savedLocation } from "./src/constants.js";
+import CameraPage from "./src/components/camera.page";
+import LabelScreen from "./src/components/labelscreen";
+import { dirLocation, queueLocation, savedLocation } from "./src/config/constants.js";
 
 const Stack = createStackNavigator();
 

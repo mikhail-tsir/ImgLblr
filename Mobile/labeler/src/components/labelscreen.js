@@ -12,8 +12,8 @@ import * as ImageManipulator from "expo-image-manipulator";
 
 import Toolbar, { BackHeader } from "./labeler.toolbar";
 import * as FileSystem from "expo-file-system";
-import { queueLocation, savedLocation, server_url } from "./constants";
-import { getFileName, queueToSavedName, saveToSaved } from "./utils";
+import { queueLocation, savedLocation, server_url } from "../config/constants";
+import { getFileName, queueToSavedName, saveToSaved } from "../config/utils";
 
 const { width: winWidth, height: winHeight } = Dimensions.get("window");
 

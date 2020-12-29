@@ -4,11 +4,11 @@ import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 import * as FileSystem from "expo-file-system";
 
-import styles from "./styles";
+import styles from "../styles/styles";
 import Toolbar from "./toolbar";
 import Gallery from "./gallery";
-import { queueLocation } from "./constants";
-import { saveToQueue } from "./utils";
+import { queueLocation } from "../config/constants";
+import { saveToQueue } from "../config/utils";
 
 export default class CameraPage extends React.Component {
   _isMounted = false;

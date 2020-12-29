@@ -12,8 +12,8 @@ import {
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 
-import styles from "./styles";
-import config from "./config/config";
+import styles from "../styles/styles";
+import config from "../config/config";
 
 const buttonSize = config.BUTTON_SIZE;
 
