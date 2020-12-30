@@ -72,7 +72,7 @@ class LabelScreen extends React.Component {
     try {
       console.log("attempting to upload");
       response = await fetch(
-        server_url + "generateurl?name=" + getFileName(this.state.location)
+        server_url + "generateurl?name=" + getFileName(this.props.current)
       );
     } catch (err) {
       alert(err);
@@ -81,7 +81,7 @@ class LabelScreen extends React.Component {
 
     try {
       const data = await response.json();
-      const res = await uploadImage(data.url, data.fields, this.state.location);
+      const res = await uploadImage(data.url, data.fields, this.props.current);
       alert("Image uploaded successfully");
     } catch (err) {
       alert(err);
