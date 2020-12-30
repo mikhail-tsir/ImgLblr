@@ -17,16 +17,6 @@ class LabelScreen extends React.Component {
   state = { savedPhotos: null, hasCameraRollPermission: null };
   navigation = this.props.navigation;
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     ...this.state,
-  //     captures: props.route.params.captures,
-  //     idx: props.route.params.index,
-  //     location: props.route.params.captures[props.route.params.index],
-  //   };
-  // }
-
   handleGoBack = () => this.navigation.navigate("cameraPage");
 
   handleCancel = async () => {
@@ -47,20 +37,6 @@ class LabelScreen extends React.Component {
       loadCaptures(queueImgs.map((name) => queueLocation + name));
     }
 
-    // console.log("length before deletion: ", captures.length);
-    // console.log("index to delete: ", idx);
-    // delCapture({ idx: idx });
-
-    // const newCaptures = this.props.captures;
-    // console.log("length after deletion: ", newCaptures.length);
-    // // if this was the last image
-    // if (newCaptures.length == 0) {
-    //   this.navigation.navigate("cameraPage");
-    //   return;
-    // }
-
-    // let newidx = idx >= newCaptures.length ? idx - 1 : idx;
-    // setCurrent(newidx);
     if (captures.length == 1) {
       this.navigation.navigate("cameraPage");
     } else {
@@ -69,12 +45,6 @@ class LabelScreen extends React.Component {
     }
 
     delCapture({ idx: idx });
-    // go to labelscreen with next image after current image is deleted
-    // this.setState({
-    //   captures: newCaptures,
-    //   idx: newidx,
-    //   location: newCaptures[newidx],
-    // });
   };
 
   handleUpload = async () => {
