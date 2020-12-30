@@ -1,22 +1,18 @@
 import React from "react";
-import {
-  Text,
-  SafeAreaView,
-  Image,
-  StyleSheet,
-  Dimensions,
-  StatusBar,
-} from "react-native";
+import { Text, SafeAreaView, Image, StatusBar } from "react-native";
 import * as Permissions from "expo-permissions";
 import * as FileSystem from "expo-file-system";
+import { connect } from "react-redux";
 
 import Toolbar, { BackHeader } from "./labeler.toolbar";
 import { queueLocation, server_url } from "../config/constants";
 import { getFileName, queueToSavedName } from "../util/utils";
 import { uploadImage } from "../util/image_utils";
 import { labelScreenStyles as styles } from "../styles/styles";
+import { loadCaptures, addCapture } from "../reducers/captures";
+import { setCurrent } from "../reducers/current_capture";
 
-export default class LabelScreen extends React.Component {
+class LabelScreen extends React.Component {
   state = { savedPhotos: null, hasCameraRollPermission: null };
   navigation = this.props.navigation;
 
@@ -143,3 +139,18 @@ export default class LabelScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = ({ captures, current }) => {
+  return {
+    captures: captures,
+    current: current,
+  };
+};
+
+const mapDispatchToProps = {
+  setCurrent,
+  loadCaptures,
+  addCapture,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LabelScreen);

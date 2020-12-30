@@ -10,7 +10,7 @@ export const addCapture = createAction(ADD_CAPTURE);
 
 export const captures = handleActions(
   {
-    LOAD_CAPTURES: (state, action) => {
+    LOAD_CAPTURES: (_, action) => {
       return action.payload;
     },
 
