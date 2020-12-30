@@ -1,6 +1,10 @@
 import * as FileSystem from "expo-file-system";
 
-import { queueLocation, savedLocation, saveLocation } from "./constants";
+import {
+  queueLocation,
+  savedLocation,
+  saveLocation,
+} from "../config/constants";
 
 function getImgName() {
   var d = new Date();

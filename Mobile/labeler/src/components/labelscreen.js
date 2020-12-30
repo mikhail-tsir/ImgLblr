@@ -13,7 +13,7 @@ import * as ImageManipulator from "expo-image-manipulator";
 import Toolbar, { BackHeader } from "./labeler.toolbar";
 import * as FileSystem from "expo-file-system";
 import { queueLocation, savedLocation, server_url } from "../config/constants";
-import { getFileName, queueToSavedName, saveToSaved } from "../config/utils";
+import { getFileName, queueToSavedName, saveToSaved } from "../util/utils";
 
 const { width: winWidth, height: winHeight } = Dimensions.get("window");
 

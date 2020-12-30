@@ -9,7 +9,7 @@ import styles from "../styles/styles";
 import Toolbar from "./toolbar";
 import Gallery from "./gallery";
 import { queueLocation } from "../config/constants";
-import { saveToQueue } from "../config/utils";
+import { saveToQueue } from "../util/utils";
 import { loadCaptures, addCapture } from "../reducers/captures.js";
 
 class CameraPage extends React.Component {
