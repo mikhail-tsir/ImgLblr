@@ -2,10 +2,16 @@ import React from "react";
 import { NavigationContainer, StackActions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as FileSystem from "expo-file-system";
+import { Provider } from "react-redux";
 
 import CameraPage from "./src/components/camera.page";
 import LabelScreen from "./src/components/labelscreen";
-import { dirLocation, queueLocation, savedLocation } from "./src/config/constants.js";
+import {
+  dirLocation,
+  queueLocation,
+  savedLocation,
+} from "./src/config/constants.js";
+import store from "./src/store.js";
 
 const Stack = createStackNavigator();
 
@@ -44,12 +50,14 @@ export default class App extends React.Component {
     return this.fileError ? (
       <Text>{this.fileError}</Text>
     ) : (
-      <NavigationContainer>
-        <Stack.Navigator headerMode={false}>
-          <Stack.Screen name="cameraPage" component={CameraPage} />
-          <Stack.Screen name="LabelScreen" component={LabelScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator headerMode={false}>
+            <Stack.Screen name="cameraPage" component={CameraPage} />
+            <Stack.Screen name="LabelScreen" component={LabelScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
     );
   }
 }

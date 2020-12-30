@@ -108,8 +108,7 @@ export default class LabelScreen extends React.Component {
     try {
       console.log("attempting to upload");
       response = await fetch(
-        server_url + "generateurl?name=" +
-          getFileName(this.state.location)
+        server_url + "generateurl?name=" + getFileName(this.state.location)
       );
     } catch (err) {
       alert(err);

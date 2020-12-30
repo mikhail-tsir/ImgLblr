@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, SafeAreaView } from "react-native";
+import { connect } from "react-redux";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 import * as FileSystem from "expo-file-system";
@@ -9,13 +10,14 @@ import Toolbar from "./toolbar";
 import Gallery from "./gallery";
 import { queueLocation } from "../config/constants";
 import { saveToQueue } from "../config/utils";
+import { loadCaptures, addCapture } from "../reducers/captures.js";
 
-export default class CameraPage extends React.Component {
+class CameraPage extends React.Component {
   _isMounted = false;
   camera = null;
 
   state = {
-    captures: [],
+    //captures: [],
     // setting flash to be turned off by default
     flashMode: Camera.Constants.FlashMode.off,
     capturing: null,
@@ -36,12 +38,14 @@ export default class CameraPage extends React.Component {
     const photoData = await this.camera.takePictureAsync({ quality: 0 });
 
     saveToQueue(photoData.uri)
-      .then((path) =>
+      .then((path) => {
         this.setState({
           capturing: false,
-          captures: [path, ...this.state.captures],
-        })
-      )
+          //captures: [path, ...this.state.captures],
+        });
+
+        this.props.addCapture(path);
+      })
       .catch((err) => alert(err));
 
     if (this.props.route.params) {
@@ -52,13 +56,15 @@ export default class CameraPage extends React.Component {
   async componentDidMount() {
     this._isMounted = true;
 
+    // TODO: put all permissions in redux state
     const camera = await Permissions.askAsync(Permissions.CAMERA);
     const hasCameraPermission = camera.status === "granted";
     this.setState({ hasCameraPermission });
 
     const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
     // console.log("Currently in queue: " + queueImgs);
-    this.setState({ captures: queueImgs.map((name) => queueLocation + name) });
+    //this.setState({ captures: queueImgs.map((name) => queueLocation + name) });
+    this.props.loadCaptures(queueImgs.map((name) => queueLocation + name));
   }
 
   componentWillUnmount() {
@@ -74,9 +80,11 @@ export default class CameraPage extends React.Component {
     } = this.state;
 
     // if captures need to be updated (img deleted), then the new captures is stored in this.props.route.params
-    const captures = this.props.route.params
-      ? this.props.route.params.captures
-      : this.state.captures;
+    // const captures = this.props.route.params
+    //   ? this.props.route.params.captures
+    //   : this.state.captures;
+
+    const captures = this.props.captures;
 
     if (hasCameraPermission === null) {
       return <View />;
@@ -95,7 +103,10 @@ export default class CameraPage extends React.Component {
             ratio="1:1" // only works on android
           />
           {captures.length > 0 && (
-            <Gallery captures={captures} navigation={this.props.navigation} />
+            <Gallery
+              captures={this.props.captures}
+              navigation={this.props.navigation}
+            />
           )}
           <Toolbar
             capturing={capturing}
@@ -112,3 +123,14 @@ export default class CameraPage extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { captures: state.captures };
+};
+
+const mapDispatchToProps = {
+  loadCaptures,
+  addCapture,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CameraPage);

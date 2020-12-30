@@ -1,13 +1,7 @@
 import React from "react";
-import { Camera } from "expo-camera";
 import {
   AntDesign,
-  Entypo,
-  FontAwesome,
   Ionicons,
-  FontAwesome5,
-  MaterialIcons,
-  Octicons,
 } from "@expo/vector-icons";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
