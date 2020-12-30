@@ -71,18 +71,7 @@ class LabelScreen extends React.Component {
   };
 
   handleSave = async () => {
-    let { hasCameraRollPermission } = this.state;
     const { current } = this.props;
-
-    if (!hasCameraRollPermission) {
-      alert(
-        "Permission Denied",
-        "Camera Roll permission has been denied. Please allow access to camera roll."
-      );
-      const camroll = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      let perm = camroll.status === "granted";
-      this.setState({ hasCameraRollPermission: perm });
-    }
 
     //move from queue to saved
     try {
@@ -100,18 +89,10 @@ class LabelScreen extends React.Component {
 
   async componentDidMount() {
     StatusBar.setHidden(true);
-    const camroll = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    let hasCameraRollPermission = camroll.status === "granted";
-    this.setState({ hasCameraRollPermission });
   }
 
   render() {
-    const { hasCameraRollPermission } = this.state;
     const { current } = this.props;
-
-    if (!hasCameraRollPermission) {
-      return <Text>Camera Roll permission has been denied</Text>;
-    }
 
     return (
       <SafeAreaView style={styles.container}>
