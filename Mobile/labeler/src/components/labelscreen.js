@@ -14,46 +14,9 @@ import Toolbar, { BackHeader } from "./labeler.toolbar";
 import * as FileSystem from "expo-file-system";
 import { queueLocation, savedLocation, server_url } from "../config/constants";
 import { getFileName, queueToSavedName, saveToSaved } from "../util/utils";
+import { resizeAndCompress, uploadImage } from "../util/image_utils";
 
 const { width: winWidth, height: winHeight } = Dimensions.get("window");
-
-// compresses and resizes image to be much smaller. Saves new image with same name
-// as original image in savedLocation
-const resizeAndCompress = async (uri) => {
-  let res;
-  try {
-    res = await ImageManipulator.manipulateAsync(
-      uri,
-      [{ resize: { width: 512 } }],
-      {
-        compress: 0,
-        format: ImageManipulator.SaveFormat.JPEG,
-        base64: false,
-      }
-    );
-  } catch (err) {
-    alert(err);
-  }
-  return await saveToSaved(res.uri);
-};
-
-const uploadImage = async (url, fields, imgPath) => {
-  const compressed = await resizeAndCompress(imgPath);
-  const form = new FormData();
-  Object.keys(fields).forEach((key) => {
-    form.append(key, fields[key]);
-  });
-  form.append("file", { uri: compressed, type: "image/jpeg" });
-
-  return await fetch(url, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "multipart/form-data",
-    },
-    body: form,
-  });
-};
 
 export default class LabelScreen extends React.Component {
   state = { savedPhotos: null, hasCameraRollPermission: null };
