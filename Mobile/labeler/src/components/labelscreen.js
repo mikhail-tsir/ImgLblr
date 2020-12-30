@@ -47,16 +47,28 @@ class LabelScreen extends React.Component {
       loadCaptures(queueImgs.map((name) => queueLocation + name));
     }
 
-    delCapture(current);
+    // console.log("length before deletion: ", captures.length);
+    // console.log("index to delete: ", idx);
+    // delCapture({ idx: idx });
 
-    // if this was the last image
-    if (captures.length == 0) {
+    // const newCaptures = this.props.captures;
+    // console.log("length after deletion: ", newCaptures.length);
+    // // if this was the last image
+    // if (newCaptures.length == 0) {
+    //   this.navigation.navigate("cameraPage");
+    //   return;
+    // }
+
+    // let newidx = idx >= newCaptures.length ? idx - 1 : idx;
+    // setCurrent(newidx);
+    if (captures.length == 1) {
       this.navigation.navigate("cameraPage");
-      return;
+    } else {
+      let newidx = idx >= captures.length - 1 ? idx - 1 : idx;
+      setCurrent(newidx);
     }
 
-    let newidx = idx >= newCaptures.length ? idx - 1 : idx;
-    setCurrent(newidx);
+    delCapture({ idx: idx });
     // go to labelscreen with next image after current image is deleted
     // this.setState({
     //   captures: newCaptures,
@@ -89,7 +101,9 @@ class LabelScreen extends React.Component {
   };
 
   handleSave = async () => {
-    let { hasCameraRollPermission, location } = this.state;
+    let { hasCameraRollPermission } = this.state;
+    const { current } = this.props;
+
     if (!hasCameraRollPermission) {
       alert(
         "Permission Denied",
@@ -103,10 +117,10 @@ class LabelScreen extends React.Component {
     //move from queue to saved
     try {
       await FileSystem.copyAsync({
-        from: location,
-        to: queueToSavedName(location),
+        from: current,
+        to: queueToSavedName(current),
       });
-    } catch (err) {
+    } catch (error) {
       console.log(error);
       alert(error);
       return;
@@ -161,6 +175,7 @@ const mapDispatchToProps = {
   setCurrent,
   loadCaptures,
   addCapture,
+  delCapture,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LabelScreen);

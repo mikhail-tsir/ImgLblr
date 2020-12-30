@@ -26,6 +26,7 @@ const mapCaptures = ({ captures, setCurrent, navigation }) => (idx) => {
 };
 
 const gallery = (props) => {
+  console.log("loading gallery, num. of captures: ", props.captures.length);
   return (
     <ScrollView
       horizontal={true}

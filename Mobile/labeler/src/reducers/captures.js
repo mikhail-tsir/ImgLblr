@@ -12,7 +12,7 @@ export const delCapture = createAction(DEL_CAPTURE);
 
 export const captures = handleActions(
   {
-    LOAD_CAPTURES: (_, action) => {
+    LOAD_CAPTURES: (state, action) => {
       return action.payload;
     },
 
@@ -21,8 +21,9 @@ export const captures = handleActions(
     },
 
     DEL_CAPTURE: (state, action) => {
-      const newState = state;
-      return newState.splice(action.payload.idx, 1);
+      const newState = [...state];
+      newState.splice(action.payload.idx, 1);
+      return newState;
     },
   },
   initialState
