@@ -9,55 +9,60 @@ import { queueLocation, server_url } from "../config/constants";
 import { getFileName, queueToSavedName } from "../util/utils";
 import { uploadImage } from "../util/image_utils";
 import { labelScreenStyles as styles } from "../styles/styles";
-import { loadCaptures, addCapture } from "../reducers/captures";
+import { loadCaptures, addCapture, delCapture } from "../reducers/captures";
 import { setCurrent } from "../reducers/current_capture";
+import { getCaptureByIdx } from "../selectors";
 
 class LabelScreen extends React.Component {
   state = { savedPhotos: null, hasCameraRollPermission: null };
   navigation = this.props.navigation;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.state,
-      captures: props.route.params.captures,
-      idx: props.route.params.index,
-      location: props.route.params.captures[props.route.params.index],
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     ...this.state,
+  //     captures: props.route.params.captures,
+  //     idx: props.route.params.index,
+  //     location: props.route.params.captures[props.route.params.index],
+  //   };
+  // }
 
-  handleGoBack = () =>
-    this.navigation.navigate("cameraPage", { captures: this.state.captures });
+  handleGoBack = () => this.navigation.navigate("cameraPage");
 
   handleCancel = async () => {
-    const { captures, idx, location } = this.state;
+    const {
+      captures,
+      current,
+      idx,
+      loadCaptures,
+      delCapture,
+      setCurrent,
+    } = this.props;
 
     try {
-      await FileSystem.deleteAsync(location);
+      await FileSystem.deleteAsync(current);
     } catch (err) {
       alert(err);
       const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
-      this.setState({
-        captures: queueImgs.map((name) => queueLocation + name),
-      });
+      loadCaptures(queueImgs.map((name) => queueLocation + name));
     }
 
-    let newCaptures = captures;
-    newCaptures.splice(idx, 1);
+    delCapture(current);
 
     // if this was the last image
-    if (newCaptures.length == 0) {
-      this.navigation.navigate("cameraPage", { captures: newCaptures });
+    if (captures.length == 0) {
+      this.navigation.navigate("cameraPage");
       return;
     }
-    let newidx = idx >= newCaptures.length ? idx - 1 : idx;
 
+    let newidx = idx >= newCaptures.length ? idx - 1 : idx;
+    setCurrent(newidx);
     // go to labelscreen with next image after current image is deleted
-    this.setState({
-      captures: newCaptures,
-      idx: newidx,
-      location: newCaptures[newidx],
-    });
+    // this.setState({
+    //   captures: newCaptures,
+    //   idx: newidx,
+    //   location: newCaptures[newidx],
+    // });
   };
 
   handleUpload = async () => {
@@ -117,7 +122,9 @@ class LabelScreen extends React.Component {
   }
 
   render() {
-    const { hasCameraRollPermission, location } = this.state;
+    const { hasCameraRollPermission } = this.state;
+    const { current } = this.props;
+
     if (!hasCameraRollPermission) {
       return <Text>Camera Roll permission has been denied</Text>;
     }
@@ -126,7 +133,7 @@ class LabelScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <Image
           resizeMode="contain"
-          source={{ uri: location }}
+          source={{ uri: current }}
           style={styles.image}
         />
         <BackHeader onBack={this.handleGoBack} />
@@ -140,10 +147,13 @@ class LabelScreen extends React.Component {
   }
 }
 
-const mapStateToProps = ({ captures, current }) => {
+// TODO: make the names less confusing here
+const mapStateToProps = (state) => {
+  const { captures, currentIdx } = state;
   return {
     captures: captures,
-    current: current,
+    current: getCaptureByIdx(state, currentIdx),
+    idx: currentIdx,
   };
 };
 

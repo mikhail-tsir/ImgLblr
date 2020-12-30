@@ -44,7 +44,7 @@ export function BackHeader({ onBack }) {
         <AntDesign
           name="back"
           color="white"
-          size={buttonSize}
+          size={BUTTON_SIZE}
           style={shadowstyle.shadow}
         />
       </TouchableOpacity>

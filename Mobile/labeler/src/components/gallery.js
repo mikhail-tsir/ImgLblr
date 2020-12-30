@@ -1,16 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
 import { View, Image, ScrollView, TouchableOpacity } from "react-native";
 
 import styles from "../styles/styles";
+import { setCurrent } from "../reducers/current_capture";
 
-const mapCaptures = (captures, navigation) => (idx) => {
+const mapCaptures = ({ captures, setCurrent, navigation }) => (idx) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("LabelScreen", {
-          index: idx,
-          captures: captures,
-        });
+        setCurrent(idx);
+        navigation.navigate("LabelScreen");
       }}
       key={captures[idx]}
     >
@@ -25,15 +25,21 @@ const mapCaptures = (captures, navigation) => (idx) => {
   );
 };
 
-export default ({ captures = [], navigation }) => {
+const gallery = (props) => {
   return (
     <ScrollView
       horizontal={true}
       style={[styles.bottomToolbar, styles.galleryContainer]}
     >
-      {[...Array(captures.length).keys()].map(
-        mapCaptures(captures, navigation)
-      )}
+      {[...Array(props.captures.length).keys()].map(mapCaptures(props))}
     </ScrollView>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    captures: state.captures,
+  };
+};
+
+export default connect(mapStateToProps, { setCurrent })(gallery);

@@ -1,13 +1,13 @@
 import { createAction, handleActions } from "redux-actions";
 
 const SET_CURRENT_CAP = "SET_CURRENT_CAP";
-const initialState = "";
+const initialState = -1;
 
 export const setCurrent = createAction(SET_CURRENT_CAP);
 
-export const currentCapture = handleActions(
+export const currentIdx = handleActions(
   {
-    SET_CURRENT_CAP: (_, action) => {
+    SET_CURRENT_CAP: (state, action) => {
       return action.payload;
     },
   },

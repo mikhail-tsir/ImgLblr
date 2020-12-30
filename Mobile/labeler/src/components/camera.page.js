@@ -13,7 +13,6 @@ import { saveToQueue } from "../util/utils";
 import { loadCaptures, addCapture } from "../reducers/captures.js";
 
 class CameraPage extends React.Component {
-  _isMounted = false;
   camera = null;
 
   state = {
@@ -54,8 +53,6 @@ class CameraPage extends React.Component {
   };
 
   async componentDidMount() {
-    this._isMounted = true;
-
     // TODO: put all permissions in redux state
     const camera = await Permissions.askAsync(Permissions.CAMERA);
     const hasCameraPermission = camera.status === "granted";
@@ -65,10 +62,6 @@ class CameraPage extends React.Component {
     // console.log("Currently in queue: " + queueImgs);
     //this.setState({ captures: queueImgs.map((name) => queueLocation + name) });
     this.props.loadCaptures(queueImgs.map((name) => queueLocation + name));
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
   }
 
   render() {
