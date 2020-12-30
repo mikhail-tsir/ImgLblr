@@ -71,3 +71,16 @@ export default StyleSheet.create({
     height: 75,
   },
 });
+
+export const labelScreenStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    backgroundColor: "#171717",
+  },
+  image: {
+    width: winWidth,
+    height: winWidth,
+  },
+});

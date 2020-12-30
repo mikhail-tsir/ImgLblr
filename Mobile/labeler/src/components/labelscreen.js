@@ -8,15 +8,15 @@ import {
   StatusBar,
 } from "react-native";
 import * as Permissions from "expo-permissions";
-import * as ImageManipulator from "expo-image-manipulator";
+import * as FileSystem from "expo-file-system";
 
 import Toolbar, { BackHeader } from "./labeler.toolbar";
-import * as FileSystem from "expo-file-system";
-import { queueLocation, savedLocation, server_url } from "../config/constants";
-import { getFileName, queueToSavedName, saveToSaved } from "../util/utils";
-import { resizeAndCompress, uploadImage } from "../util/image_utils";
+import { queueLocation, server_url } from "../config/constants";
+import { getFileName, queueToSavedName } from "../util/utils";
+import { uploadImage } from "../util/image_utils";
+import { labelScreenStyles as styles } from "../styles/styles";
 
-const { width: winWidth, height: winHeight } = Dimensions.get("window");
+const { width: winWidth } = Dimensions.get("window");
 
 export default class LabelScreen extends React.Component {
   state = { savedPhotos: null, hasCameraRollPermission: null };
@@ -143,16 +143,3 @@ export default class LabelScreen extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    backgroundColor: "#171717",
-  },
-  image: {
-    width: winWidth,
-    height: winWidth,
-  },
-});

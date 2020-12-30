@@ -1,3 +1,8 @@
+import * as ImageManipulator from "expo-image-manipulator";
+import * as FileSystem from "expo-file-system";
+
+import { saveToSaved } from "./utils";
+
 export const uploadImage = async (url, fields, imgPath) => {
   const compressed = await resizeAndCompress(imgPath);
   const form = new FormData();
@@ -16,7 +21,7 @@ export const uploadImage = async (url, fields, imgPath) => {
   });
 };
 
-export const resizeAndCompress = async (uri) => {
+const resizeAndCompress = async (uri) => {
   let res;
   try {
     res = await ImageManipulator.manipulateAsync(
