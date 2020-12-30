@@ -40,16 +40,11 @@ class CameraPage extends React.Component {
       .then((path) => {
         this.setState({
           capturing: false,
-          //captures: [path, ...this.state.captures],
         });
 
         this.props.addCapture(path);
       })
       .catch((err) => alert(err));
-
-    if (this.props.route.params) {
-      this.props.route.params = undefined;
-    }
   };
 
   async componentDidMount() {
@@ -59,8 +54,6 @@ class CameraPage extends React.Component {
     this.setState({ hasCameraPermission });
 
     const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
-    // console.log("Currently in queue: " + queueImgs);
-    //this.setState({ captures: queueImgs.map((name) => queueLocation + name) });
     this.props.loadCaptures(queueImgs.map((name) => queueLocation + name));
   }
 
@@ -118,7 +111,10 @@ class CameraPage extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { captures: state.captures };
+  return {
+    captures: state.captures,
+    hasCameraPermission: state.permissions.cameraPermission,
+  };
 };
 
 const mapDispatchToProps = {

@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 
 const initialState = [];
 
-export const LOAD_CAPTURES = "LOAD_CAPTURES",
+const LOAD_CAPTURES = "LOAD_CAPTURES",
   ADD_CAPTURE = "ADD_CAPTURE",
   DEL_CAPTURE = "DEL_CAPTURE";
 
