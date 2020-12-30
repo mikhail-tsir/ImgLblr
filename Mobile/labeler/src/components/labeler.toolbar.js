@@ -1,22 +1,17 @@
 import React from "react";
-import {
-  AntDesign,
-  Ionicons,
-} from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 
 import styles from "../styles/styles";
-import config from "../config/config";
-
-const buttonSize = config.BUTTON_SIZE;
+import { BUTTON_SIZE } from "../config/constants.js";
 
 export default ({ onSave, onUpload, onCancel }) => (
   <Grid style={styles.bottomToolbar}>
     <Row>
       <Col style={styles.alignCenter}>
         <TouchableOpacity onPress={onCancel}>
-          <AntDesign name="close" color="white" size={buttonSize} />
+          <AntDesign name="close" color="white" size={BUTTON_SIZE} />
         </TouchableOpacity>
       </Col>
       <Col style={styles.alignCenter}>
@@ -26,12 +21,16 @@ export default ({ onSave, onUpload, onCancel }) => (
             color="white"
             size={buttonSize * 2}
           /> */}
-          <Ionicons name="ios-add-circle-outline" size={buttonSize * 2} color="white"/>
+          <Ionicons
+            name="ios-add-circle-outline"
+            size={BUTTON_SIZE * 2}
+            color="white"
+          />
         </TouchableOpacity>
       </Col>
       <Col style={styles.alignCenter}>
         <TouchableOpacity onPress={onSave}>
-          <AntDesign name="check" color="white" size={buttonSize} />
+          <AntDesign name="check" color="white" size={BUTTON_SIZE} />
         </TouchableOpacity>
       </Col>
     </Row>

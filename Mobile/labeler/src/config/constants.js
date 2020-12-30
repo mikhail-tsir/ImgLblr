@@ -5,3 +5,5 @@ export const queueLocation = dirLocation + "queue/";
 export const savedLocation = dirLocation + "saved/";
 
 export const server_url = "http://10.0.0.122:5000/";
+
+export const BUTTON_SIZE = 30;
