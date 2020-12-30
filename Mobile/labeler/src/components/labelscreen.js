@@ -16,8 +16,6 @@ import { getFileName, queueToSavedName } from "../util/utils";
 import { uploadImage } from "../util/image_utils";
 import { labelScreenStyles as styles } from "../styles/styles";
 
-const { width: winWidth } = Dimensions.get("window");
-
 export default class LabelScreen extends React.Component {
   state = { savedPhotos: null, hasCameraRollPermission: null };
   navigation = this.props.navigation;
@@ -68,6 +66,8 @@ export default class LabelScreen extends React.Component {
 
   handleUpload = async () => {
     let response;
+
+    // generate presigned url
     try {
       console.log("attempting to upload");
       response = await fetch(
