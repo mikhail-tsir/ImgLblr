@@ -1,4 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
+import * as FileSystem from "expo-file-system";
+
+import { queueLocation } from "../config/constants";
 
 const initialState = [];
 
@@ -28,3 +31,10 @@ export const captures = handleActions(
   },
   initialState
 );
+
+export function loadCapturesFromQueue() {
+  return async (dispatch, getState) => {
+    const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
+    dispatch(loadCaptures(queueImgs.map((name) => queueLocation + name)));
+  };
+}

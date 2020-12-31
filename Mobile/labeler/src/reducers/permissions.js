@@ -1,3 +1,5 @@
+import * as Permissions from "expo-permissions";
+
 import { createAction, handleActions } from "redux-actions";
 
 const initialState = {
@@ -6,7 +8,9 @@ const initialState = {
 
 const SET_CAMERA_PERMISSION = "SET_CAMERA_PERMISSION";
 
-export const setCameraPermission = createAction(SET_CAMERA_PERMISSION);
+export const setCameraPermission = (permission) => {
+  return { type: SET_CAMERA_PERMISSION, permission: permission };
+};
 
 export const permissions = handleActions(
   {
@@ -19,3 +23,10 @@ export const permissions = handleActions(
   },
   initialState
 );
+
+export function cameraPermissionAction() {
+  return async (dispatch, getState) => {
+    const camera = await Permissions.askAsync(Permissions.CAMERA);
+    dispatch(setCameraPermission(camera.status === "granted"));
+  };
+}
