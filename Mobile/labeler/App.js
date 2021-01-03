@@ -54,10 +54,22 @@ export default class App extends React.Component {
     ) : (
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator headerMode={false}>
-            <Stack.Screen name="cameraPage" component={CameraPage} />
-            <Stack.Screen name="LabelScreen" component={LabelScreen} />
-            <Stack.Screen name="savedScreen" component={SavedScreen} />
+          <Stack.Navigator /*headerMode={false}*/>
+            <Stack.Screen
+              name="cameraPage"
+              component={CameraPage}
+              options={{ title: "Camera" }}
+            />
+            <Stack.Screen
+              name="LabelScreen"
+              component={LabelScreen}
+              options={{ title: "Add labels" }}
+            />
+            <Stack.Screen
+              name="savedScreen"
+              component={SavedScreen}
+              options={{ title: "Saved Images" }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

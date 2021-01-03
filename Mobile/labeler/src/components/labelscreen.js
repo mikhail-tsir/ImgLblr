@@ -8,7 +8,11 @@ import { queueLocation, server_url } from "../config/constants";
 import { getFileName, queueToSavedName } from "../util/utils";
 import { uploadImage } from "../util/image_utils";
 import { labelScreenStyles as styles } from "../styles/styles";
-import { loadCaptures, addCapture, delCapture } from "../reducers/captures";
+import {
+  loadCapturesFromQueue,
+  addCapture,
+  delCapture,
+} from "../reducers/captures";
 import { setCurrent } from "../reducers/current_capture";
 import { moveToSaved } from "../reducers/saved";
 import { getCaptureByIdx } from "../selectors";
@@ -25,7 +29,7 @@ class LabelScreen extends React.Component {
       captures,
       current,
       idx,
-      loadCaptures,
+      loadCapturesFromQueue,
       delCapture,
       setCurrent,
     } = this.props;
@@ -34,8 +38,7 @@ class LabelScreen extends React.Component {
       await FileSystem.deleteAsync(current);
     } catch (err) {
       alert(err);
-      const queueImgs = await FileSystem.readDirectoryAsync(queueLocation);
-      loadCaptures(queueImgs.map((name) => queueLocation + name));
+      loadCapturesFromQueue();
     }
 
     if (captures.length == 1) {
@@ -80,7 +83,7 @@ class LabelScreen extends React.Component {
   };
 
   async componentDidMount() {
-    StatusBar.setHidden(true);
+    //StatusBar.setHidden(true);
   }
 
   render() {
@@ -104,7 +107,6 @@ class LabelScreen extends React.Component {
   }
 }
 
-// TODO: make the names less confusing here
 const mapStateToProps = (state) => {
   const { captures, currentIdx } = state;
   return {
@@ -116,7 +118,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   setCurrent,
-  loadCaptures,
+  loadCapturesFromQueue,
   addCapture,
   delCapture,
   moveToSaved,

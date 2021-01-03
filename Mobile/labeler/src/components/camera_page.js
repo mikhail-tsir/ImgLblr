@@ -76,8 +76,8 @@ class CameraPage extends React.Component {
               navigation={this.props.navigation}
             />
           )}
-          {/* TODO: make this a different icon */}
-          <BackHeader onBack={this.showSaved} />
+          {/* TODO: make this a different icon 
+          <BackHeader onBack={this.showSaved} />*/}
           <Toolbar
             capturing={capturing}
             flashMode={flashMode}

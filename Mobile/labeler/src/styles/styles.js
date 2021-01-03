@@ -14,7 +14,7 @@ export default StyleSheet.create({
     //position: "absolute",
     left: 0,
     //top: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    top: "15%",
+    top: 0,
     right: 0,
     bottom: 0,
     backgroundColor: "dodgerblue",
