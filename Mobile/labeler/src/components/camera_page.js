@@ -6,6 +6,7 @@ import { Camera } from "expo-camera";
 import styles from "../styles/styles";
 import Toolbar from "./toolbar";
 import Gallery from "./gallery";
+import { BackHeader } from "./labeler_toolbar";
 import {
   loadCapturesFromQueue,
   saveCaptureToQueue,
@@ -25,13 +26,9 @@ class CameraPage extends React.Component {
 
   setFlashMode = (flashMode) => this.setState({ flashMode });
   setCameraType = (cameraType) => this.setState({ cameraType });
-  handleCaptureIn = () => this.setState({ capturing: true });
-
-  handleCaptureOut = () => {
-    if (this.state.capturing) this.camera.stopRecording();
-  };
 
   handleShortCapture = async () => {
+    this.setState({ capturing: true });
     this.camera
       .takePictureAsync({ quality: 0 })
       .then((photoData) => {
@@ -41,6 +38,10 @@ class CameraPage extends React.Component {
         this.props.saveCaptureToQueue(photoData.uri);
       })
       .catch((err) => alert(err));
+  };
+
+  showSaved = () => {
+    this.props.navigation.navigate("savedScreen");
   };
 
   async componentDidMount() {
@@ -73,14 +74,13 @@ class CameraPage extends React.Component {
               navigation={this.props.navigation}
             />
           )}
+          <BackHeader onBack={this.showSaved} />
           <Toolbar
             capturing={capturing}
             flashMode={flashMode}
             cameraType={cameraType}
             setFlashMode={this.setFlashMode}
             setCameraType={this.setCameraType}
-            onCaptureIn={this.handleCaptureIn}
-            onCaptureOut={this.handleCaptureOut}
             onShortCapture={this.handleShortCapture}
           />
         </SafeAreaView>

@@ -1,7 +1,9 @@
 import { connect } from "react-redux";
-import { Dimensions, FlatList } from "react-native";
+import { Dimensions, FlatList, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
 import styles from "../styles/styles";
+import { BackHeader } from "./labeler_toolbar";
 
 const SavedScreen = ({ savedImgs, navigation }) => {
   const { width } = Dimensions.get("window");

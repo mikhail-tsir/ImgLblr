@@ -14,8 +14,6 @@ export default ({
   flashMode = CameraFlashModes.off,
   setFlashMode,
   setCameraType,
-  onCaptureIn,
-  onCaptureOut,
   onShortCapture,
 }) => (
   <Grid style={styles.bottomToolbar}>
@@ -40,11 +38,7 @@ export default ({
         </TouchableOpacity>
       </Col>
       <Col size={2} style={styles.alignCenter}>
-        <TouchableWithoutFeedback
-          onPressIn={onCaptureIn}
-          onPressOut={onCaptureOut}
-          onPress={onShortCapture}
-        >
+        <TouchableWithoutFeedback onPress={onShortCapture}>
           <View
             style={[styles.captureBtn, capturing && styles.captureBtnActive]}
           >
