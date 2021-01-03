@@ -6,8 +6,10 @@ import { Camera } from "expo-camera";
 import styles from "../styles/styles";
 import Toolbar from "./toolbar";
 import Gallery from "./gallery";
-import { saveToQueue } from "../util/utils";
-import { loadCapturesFromQueue, addCapture } from "../reducers/captures.js";
+import {
+  loadCapturesFromQueue,
+  saveCaptureToQueue,
+} from "../reducers/captures.js";
 import { cameraPermissionAction } from "../reducers/permissions";
 
 class CameraPage extends React.Component {
@@ -30,15 +32,13 @@ class CameraPage extends React.Component {
   };
 
   handleShortCapture = async () => {
-    const photoData = await this.camera.takePictureAsync({ quality: 0 });
-
-    saveToQueue(photoData.uri)
-      .then((path) => {
+    this.camera
+      .takePictureAsync({ quality: 0 })
+      .then((photoData) => {
         this.setState({
           capturing: false,
         });
-
-        this.props.addCapture(path);
+        this.props.saveCaptureToQueue(photoData.uri);
       })
       .catch((err) => alert(err));
   };
@@ -51,9 +51,7 @@ class CameraPage extends React.Component {
   render() {
     const { flashMode, cameraType, capturing } = this.state;
 
-    const { hasCameraPermission } = this.props;
-
-    const captures = this.props.captures;
+    const { hasCameraPermission, captures } = this.props;
 
     if (hasCameraPermission === false) {
       return <Text>Access to camera has not been granted.</Text>;
@@ -100,8 +98,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   loadCapturesFromQueue,
-  addCapture,
   cameraPermissionAction,
+  saveCaptureToQueue,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraPage);
