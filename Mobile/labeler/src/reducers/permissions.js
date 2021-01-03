@@ -1,6 +1,6 @@
 import * as Permissions from "expo-permissions";
 
-import { createAction, handleActions } from "redux-actions";
+import { handleActions } from "redux-actions";
 
 const initialState = {
   cameraPermission: false,

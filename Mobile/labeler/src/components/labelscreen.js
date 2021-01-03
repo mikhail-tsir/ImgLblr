@@ -1,6 +1,5 @@
 import React from "react";
-import { Text, SafeAreaView, Image, StatusBar } from "react-native";
-import * as Permissions from "expo-permissions";
+import { SafeAreaView, Image, StatusBar } from "react-native";
 import * as FileSystem from "expo-file-system";
 import { connect } from "react-redux";
 
