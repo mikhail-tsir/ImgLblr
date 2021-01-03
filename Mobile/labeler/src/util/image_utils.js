@@ -21,14 +21,15 @@ export const uploadImage = async (url, fields, imgPath) => {
   });
 };
 
-const resizeAndCompress = async (uri) => {
+export const resizeAndCompress = async (uri, compression = 0) => {
+  console.log("uri before resizing:", uri);
   let res;
   try {
     res = await ImageManipulator.manipulateAsync(
       uri,
       [{ resize: { width: 512 } }],
       {
-        compress: 0,
+        compress: compression,
         format: ImageManipulator.SaveFormat.JPEG,
         base64: false,
       }
@@ -36,5 +37,6 @@ const resizeAndCompress = async (uri) => {
   } catch (err) {
     alert(err);
   }
+  console.log("uri after resizing", res.uri);
   return res.uri;
 };

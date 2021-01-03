@@ -12,6 +12,7 @@ import { loadCaptures, addCapture, delCapture } from "../reducers/captures";
 import { setCurrent } from "../reducers/current_capture";
 import { moveToSaved } from "../reducers/saved";
 import { getCaptureByIdx } from "../selectors";
+import { resizeAndCompress } from "../util/image_utils";
 
 class LabelScreen extends React.Component {
   state = { savedPhotos: null, hasCameraRollPermission: null };
@@ -73,18 +74,8 @@ class LabelScreen extends React.Component {
   handleSave = async () => {
     const { current } = this.props;
 
-    //move from queue to saved
-    // try {
-    //   await FileSystem.copyAsync({
-    //     from: current,
-    //     to: queueToSavedName(current),
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    //   alert(error);
-    //   return;
-    // }
-    this.props.moveToSaved(current);
+    const newUri = await resizeAndCompress(current, 0.5);
+    this.props.moveToSaved(newUri);
     this.handleCancel();
   };
 
