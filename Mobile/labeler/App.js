@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as FileSystem from "expo-file-system";
 import { Provider } from "react-redux";
+import { Text } from "react-native";
 
 import CameraPage from "./src/components/camera_page";
 import LabelScreen from "./src/components/labelscreen";

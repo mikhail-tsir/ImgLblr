@@ -1,40 +1,60 @@
+import React from "react";
 import { connect } from "react-redux";
-import { Dimensions, FlatList, View } from "react-native";
+import {
+  Dimensions,
+  FlatList,
+  View,
+  Text,
+  Image,
+  StatusBar,
+  SafeAreaView,
+} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-import styles from "../styles/styles";
-import { BackHeader } from "./labeler_toolbar";
+import { savedScreenStyles } from "../styles/styles";
 
-const SavedScreen = ({ savedImgs, navigation }) => {
+const SavedScreen = (props) => {
+  const { savedImgs, navigation } = props;
   const { width } = Dimensions.get("window");
-  const indices = [...Array(savedImgs.length).keys()];
+  const numCols = 4;
+
+  function renderItem(item) {
+    return (
+      <TouchableOpacity
+        style={{ flex: 1, aspectRatio: 1 }}
+        onPress={() => {
+          navigation.navigate("cameraPage");
+        }}
+      >
+        <View style={savedScreenStyles(numCols)}>
+          <Image
+            style={savedScreenStyles(numCols)}
+            resizeMode="cover"
+            source={{ uri: item }}
+          />
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
   return (
-    <FlatList
-      numColumns={(width - 10) / styles.galleryImage.width}
-      data={indices}
-      renderItem={({ idx }) => renderItem(idx, savedImgs[idx], navigation)}
-    />
+    <SafeAreaView
+      style={{ flex: 1, justifyContent: "center", backgroundColor: "#171717" }}
+    >
+      <FlatList
+        style={{
+          paddingTop: StatusBar.currentHeight,
+          backgroundColor: "#171717",
+        }}
+        horizontal={false}
+        numColumns={numCols}
+        data={savedImgs}
+        renderItem={({ item }) => renderItem(item, navigation)}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </SafeAreaView>
   );
 };
-
-function renderItem(idx, item, navigation) {
-  return (
-    <TouchableOpacity
-      style={{ flex: 1, aspectRatio: 1 }}
-      onPress={() => {
-        navigation.navigate("cameraPage");
-      }}
-    >
-      <View style={styles.galleryImageContainer} key={idx}>
-        <Image
-          style={{ ...styles.galleryImage, flex: 1 }}
-          resizeMode="cover"
-          source={{ uri: item }}
-        />
-      </View>
-    </TouchableOpacity>
-  );
-}
 
 const mapStateToProps = (state) => {
   return {

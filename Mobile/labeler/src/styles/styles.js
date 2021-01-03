@@ -84,3 +84,15 @@ export const labelScreenStyles = StyleSheet.create({
     height: winWidth,
   },
 });
+
+export const savedScreenStyles = (numCols) => {
+  const imgWidth = Math.floor((winWidth - 5 * (numCols + 1)) / numCols);
+
+  return StyleSheet.create({
+    width: imgWidth,
+    height: imgWidth,
+    flex: 1,
+    marginHorizontal: 5,
+    marginVertical: 2.5,
+  });
+};

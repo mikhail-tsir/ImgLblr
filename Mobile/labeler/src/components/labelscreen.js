@@ -10,6 +10,7 @@ import { uploadImage } from "../util/image_utils";
 import { labelScreenStyles as styles } from "../styles/styles";
 import { loadCaptures, addCapture, delCapture } from "../reducers/captures";
 import { setCurrent } from "../reducers/current_capture";
+import { moveToSaved } from "../reducers/saved";
 import { getCaptureByIdx } from "../selectors";
 
 class LabelScreen extends React.Component {
@@ -73,16 +74,17 @@ class LabelScreen extends React.Component {
     const { current } = this.props;
 
     //move from queue to saved
-    try {
-      await FileSystem.copyAsync({
-        from: current,
-        to: queueToSavedName(current),
-      });
-    } catch (error) {
-      console.log(error);
-      alert(error);
-      return;
-    }
+    // try {
+    //   await FileSystem.copyAsync({
+    //     from: current,
+    //     to: queueToSavedName(current),
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    //   alert(error);
+    //   return;
+    // }
+    this.props.moveToSaved(current);
     this.handleCancel();
   };
 
@@ -126,6 +128,7 @@ const mapDispatchToProps = {
   loadCaptures,
   addCapture,
   delCapture,
+  moveToSaved,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LabelScreen);

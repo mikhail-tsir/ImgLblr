@@ -11,6 +11,7 @@ import {
   loadCapturesFromQueue,
   saveCaptureToQueue,
 } from "../reducers/captures.js";
+import { loadCapturesFromSaved } from "../reducers/saved";
 import { cameraPermissionAction } from "../reducers/permissions";
 
 class CameraPage extends React.Component {
@@ -47,6 +48,7 @@ class CameraPage extends React.Component {
   async componentDidMount() {
     this.props.cameraPermissionAction();
     this.props.loadCapturesFromQueue();
+    this.props.loadCapturesFromSaved();
   }
 
   render() {
@@ -74,6 +76,7 @@ class CameraPage extends React.Component {
               navigation={this.props.navigation}
             />
           )}
+          {/* TODO: make this a different icon */}
           <BackHeader onBack={this.showSaved} />
           <Toolbar
             capturing={capturing}
@@ -100,6 +103,7 @@ const mapDispatchToProps = {
   loadCapturesFromQueue,
   cameraPermissionAction,
   saveCaptureToQueue,
+  loadCapturesFromSaved,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CameraPage);
