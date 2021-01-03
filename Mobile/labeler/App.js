@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 
 import CameraPage from "./src/components/camera_page";
 import LabelScreen from "./src/components/labelscreen";
+import SavedScreen from "./src/components/saved";
 import {
   dirLocation,
   queueLocation,
@@ -55,6 +56,7 @@ export default class App extends React.Component {
           <Stack.Navigator headerMode={false}>
             <Stack.Screen name="cameraPage" component={CameraPage} />
             <Stack.Screen name="LabelScreen" component={LabelScreen} />
+            <Stack.Screen name="savedScreen" component={SavedScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
