@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import * as FileSystem from "expo-file-system";
 import { Provider } from "react-redux";
 
-import CameraPage from "./src/components/camera.page";
+import CameraPage from "./src/components/camera_page";
 import LabelScreen from "./src/components/labelscreen";
 import {
   dirLocation,
