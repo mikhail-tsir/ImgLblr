@@ -36,5 +36,5 @@ const resizeAndCompress = async (uri) => {
   } catch (err) {
     alert(err);
   }
-  return await saveToSaved(res.uri);
+  return res.uri;
 };
