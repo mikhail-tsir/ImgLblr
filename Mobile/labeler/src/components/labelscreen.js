@@ -96,7 +96,6 @@ class LabelScreen extends React.Component {
           source={{ uri: current }}
           style={styles.image}
         />
-        <BackHeader onBack={this.handleGoBack} />
         <Toolbar
           onCancel={this.handleCancel}
           onUpload={this.handleUpload}

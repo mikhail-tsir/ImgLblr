@@ -1,6 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import * as FileSystem from "expo-file-system";
 import { Provider } from "react-redux";
 import { Text } from "react-native";
@@ -15,7 +16,8 @@ import {
 } from "./src/config/constants.js";
 import store from "./src/store.js";
 
-const Stack = createStackNavigator();
+//const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default class App extends React.Component {
   fileError = null;
@@ -54,23 +56,23 @@ export default class App extends React.Component {
     ) : (
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator /*headerMode={false}*/>
-            <Stack.Screen
+          <Drawer.Navigator /*headerMode={false}*/>
+            <Drawer.Screen
               name="cameraPage"
               component={CameraPage}
               options={{ title: "Camera" }}
             />
-            <Stack.Screen
+            <Drawer.Screen
               name="LabelScreen"
               component={LabelScreen}
               options={{ title: "Add labels" }}
             />
-            <Stack.Screen
+            <Drawer.Screen
               name="savedScreen"
               component={SavedScreen}
               options={{ title: "Saved Images" }}
             />
-          </Stack.Navigator>
+          </Drawer.Navigator>
         </NavigationContainer>
       </Provider>
     );
